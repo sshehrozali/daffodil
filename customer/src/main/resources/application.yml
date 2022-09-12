@@ -3,3 +3,13 @@ server:
 spring:
   application:
     name: Customer
+  datasource:
+    url: jdbc:h2:mem:testdb
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.h2.Driver
+          format_sql: 'true'
+      show-sql: 'true'
+      hibernate:
+        ddl-auto: create-drop
