@@ -6,7 +6,11 @@
 
   <groupId>com.eDukan.app</groupId>
   <artifactId>eDukan-app</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>customer</module>
+  </modules>
 
   <name>eDukan-app</name>
   <!-- FIXME change it to the project's website -->
