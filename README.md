@@ -17,8 +17,12 @@
 * Project lombok
 
 ### Distributed Tracing
-* **Trade ID:** The ID which will remain consistent throughout each request handled.
-* **Span ID:** The ID which will be changed as soon as it transitions from one service to another.
-* 
+#### Spring Cloud Sleuth
+* **Trade ID:** This ID will be same across the request.
+* **Span ID:** This ID will be different in each unit of work in a given request.
+
+#### Zipkin
+
+
 ### Eureka Server connection pool
 ![](misc/eureka-server.png)
