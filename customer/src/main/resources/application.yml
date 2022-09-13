@@ -4,12 +4,12 @@ spring:
   application:
     name: Customer
   datasource:
+    driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
-    jpa:
-      properties:
-        hibernate:
-          dialect: org.h2.Driver
-          format_sql: 'true'
-      show-sql: 'true'
-      hibernate:
-        ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
