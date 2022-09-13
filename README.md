@@ -14,3 +14,6 @@
 * Spring Data JPA
 * H2 Database (for in-memory testing)
 * Project lombok
+
+### Eureka Server connection pool
+![](misc/eureka-server.png)
