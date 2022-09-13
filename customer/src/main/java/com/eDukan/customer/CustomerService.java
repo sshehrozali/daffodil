@@ -11,11 +11,16 @@ public class CustomerService {
     private final RestTemplate restTemplate;
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder().firstname(request.firstname()).lastname(request.lastname()).email(request.email()).build();
+        customerRepository.saveAndFlush(customer);
+
         // todo: check if email is valid
         // todo: check if email is already taken
         // todo: check if customer is fraudulent
+        FraudCheckHistoryResponse fraudCheckHistoryResponse = restTemplate.getForObject("http://localhost:8081/api/v1/fraud-check/{customerId}",
+                FraudCheckHistoryResponse.class, customer.getId());
+        if (fraudCheckHistoryResponse.isFraudster()) {
+            throw new IllegalStateException("Customer is Fraudster");
+        }
         // todo: send notification
-
-        customerRepository.save(customer);
     }
 }
