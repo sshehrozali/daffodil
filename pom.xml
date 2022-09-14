@@ -11,6 +11,7 @@
     <modules>
         <module>customer</module>
         <module>fraud</module>
+      <module>eureka-server</module>
     </modules>
 
     <name>eDukan-app</name>
