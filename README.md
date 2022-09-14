@@ -1,4 +1,6 @@
-## Microservices
+### High-level Overview
+![](misc/distributed-system-design.png)
+### Microservices
 * **Customer:** The goal of this microservice is to handle all Customer registration requests.
 * **Fraud:** The goal of this microservice is to handle and perform all fraud checks i.e. if a customer is fraudulent or not.
 
