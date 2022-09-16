@@ -1,40 +1,65 @@
+version: "3.6"
+# https://docs.docker.com/compose/compose-file/
 services:
-  postgres:
-    container_name: postgres
-    image: postgres
-    environment:
-      POSTGRES_USER: eDukan
-      POSTGRES_PASSWORD: password
-      PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgres
+  rabbitmq:
+    image: 'rabbitmq:3.6-management-alpine'
     ports:
-      - "5432:5432"
+      # The standard AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
+    environment:
+      # The location of the RabbitMQ server.  "amqp" is the protocol;
+      # "rabbitmq" is the hostname.  Note that there is not a guarantee
+      # that the server will start first!  Telling the pika client library
+      # to try multiple times gets around this ordering issue.
+      AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
     networks:
-      - postgres
-    restart: unless-stopped
-
-pgadmin:
-  container_name: pgadmin
-  image: dpage/pgadmin4
-  environment:
-    PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4}
-    PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-    PGADMIN_CONFIG_SERVER_MODE: 'False'
-  volumes:
-    - pgadmin:/var/lib/pgadmin
-
-  ports:
-    - "5050:80"
-  networks:
-    - postgres
-  restart: unless-stoppped
-
-
+      - network
 networks:
-  postgres:
-    driver: bridge
+  # Declare our private network.  We must declare one for the magic
+  # Docker DNS to work, but otherwise its default settings are fine.
+  network: {}
 
-volumes:
-  postgres:
-  pgadmin:
+#services:
+#  postgres:
+#    container_name: postgres
+#    image: postgres
+#    environment:
+#      POSTGRES_USER: eDukan
+#      POSTGRES_PASSWORD: password
+#      PGDATA: /data/postgres
+#    volumes:
+#      - postgres:/data/postgres
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - postgres
+#    restart: unless-stopped
+#
+#pgadmin:
+#  container_name: pgadmin
+#  image: dpage/pgadmin4
+#  environment:
+#    PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4}
+#    PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+#    PGADMIN_CONFIG_SERVER_MODE: 'False'
+#  volumes:
+#    - pgadmin:/var/lib/pgadmin
+#
+#  ports:
+#    - "5050:80"
+#  networks:
+#    - postgres
+#  restart: unless-stoppped
+#
+#
+#networks:
+#  postgres:
+#    driver: bridge
+#
+#volumes:
+#  postgres:
+#  pgadmin:
