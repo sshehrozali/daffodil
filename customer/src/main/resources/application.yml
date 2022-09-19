@@ -13,6 +13,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+  zipkin:
+    base-url: http://localhost:9411
 eureka:
   client:
     service-url:
