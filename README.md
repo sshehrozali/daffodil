@@ -13,4 +13,11 @@ The `customer` microservice uses round-robin DNS load balancing algorithm to per
 #### Eureka Server connection pool
 ![](misc/eureka-server.png)
 
+### Distributed Tracing
+#### Zipkin & Sleuth
+<img src="misc/zipkin-logo.png" alt="drawing" width="100"/>
+
+Uses `spring-cloud-starter-sleuth` and `spring-cloud-sleuth-zipkin` across all microservices. Zipkin server runs via a Java jar on same machine. Zipkin can also be configured inside `docker-compose.yml` to run in Docker container. The default port of Zipkin server is `9411`.
+
+
 
