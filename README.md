@@ -3,6 +3,7 @@
 ### Microservices
 * **Customer:** The goal of this microservice is to handle all Customer registration requests.
 * **Fraud:** The goal of this microservice is to handle and perform all fraud checks i.e. if a customer is fraudulent or not.
+* **Notification:** The goal of this microservice is to send an async notification to user's smartphone or any other device when the user has registered successfully via third-party providers like Firebase or Twilio.
 
 ### Service Discovery
 `eureka-server` uses `spring-cloud-starter-netflix-eureka-server` to register instance as server while other microservices `customer`, `fraud` uses `spring-cloud-starter-netflix-eureka-client` to register themselves as clients.
