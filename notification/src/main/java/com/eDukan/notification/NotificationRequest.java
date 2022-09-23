@@ -1,4 +1,7 @@
 package com.eDukan.notification;
 
-public class NotificationRequest {
+public record NotificationRequest(
+        String customerEmail,
+        String registeredAt
+) {
 }
