@@ -1,6 +1,7 @@
 package com.eDukan.notification;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Notification {
     @Id
     @SequenceGenerator(name = "notification_id_sequence", sequenceName = "notification_id_sequence")
