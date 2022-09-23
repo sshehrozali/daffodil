@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -21,4 +22,5 @@ public class Customer {
     private String firstname;
     private String lastname;
     private String email;
+    private LocalDateTime createdAt;
 }
