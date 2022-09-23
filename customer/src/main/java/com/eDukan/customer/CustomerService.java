@@ -15,7 +15,7 @@ public class CustomerService {
 
         // todo: check if email is valid
         // todo: check if email is already taken
-        // todo: check if customer is fraudulent
+        // check if customer is fraudulent
         FraudCheckHistoryResponse fraudCheckHistoryResponse = restTemplate.getForObject("http://FRAUD/api/v1/fraud-check/{customerId}",
                 FraudCheckHistoryResponse.class, customer.getId());
         if (fraudCheckHistoryResponse.isFraudster()) {
