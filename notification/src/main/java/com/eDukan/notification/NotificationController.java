@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class NotificationController {
     private final NotificationService notificationService;
 
-    public void publishNotification(@RequestBody NotificationRequest request) {
+    public NotificationResponse publishNotification(@RequestBody NotificationRequest request) {
         log.info("New Notification: " + request.customerEmail() + "registered at " + request.registeredAt());
-        notificationService.send(request);
+        return notificationService.send(request);
     }
 }
