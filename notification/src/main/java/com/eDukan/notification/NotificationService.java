@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class NotificationService {
     private final NotificationRepository notificationRepository;
-    public void send(NotificationRequest request) {
+    public NotificationResponse send(NotificationRequest request) {
         Notification notification = Notification.builder()
                 .customerEmail(request.customerEmail())
                 .registeredAt(request.registeredAt())
                 .sentAt(LocalDateTime.now())
                 .build();
         notificationRepository.save(notification);
+        return new NotificationResponse(true);
     }
 }
