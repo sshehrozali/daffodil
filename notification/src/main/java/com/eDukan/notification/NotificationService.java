@@ -15,6 +15,6 @@ public class NotificationService {
                 .registeredAt(request.registeredAt())
                 .sentAt(LocalDateTime.now())
                 .build();
-
+        notificationRepository.save(notification);
     }
 }
