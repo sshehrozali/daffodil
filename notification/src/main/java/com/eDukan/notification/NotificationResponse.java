@@ -1,4 +1,6 @@
 package com.eDukan.notification;
 
-public record NotificationResponse() {
+public record NotificationResponse(
+        Boolean isSent
+) {
 }
