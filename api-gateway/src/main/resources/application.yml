@@ -1,13 +1,16 @@
+server:
+  port: 9000
 spring:
   application:
     name: APIGateway
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
         # Customer API
-        - id: customer_api
-          uri: http://CUSTOMER/api/v1/customers
+        - id: customer
+          uri: lb://customer
           predicates:
             - Path=/api/v1/customers
-server:
-  port: 9000
