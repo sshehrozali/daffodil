@@ -1,5 +1,13 @@
 spring:
   application:
     name: APIGateway
+  cloud:
+    gateway:
+      routes:
+        # Customer API
+        - id: customer
+          uri: http://customer
+          predicates:
+            - Path=/api/v1/customers
 server:
   port: 9000

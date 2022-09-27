@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: APIGateway
+server:
+  port: 9000
