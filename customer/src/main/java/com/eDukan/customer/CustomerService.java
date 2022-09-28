@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
@@ -22,9 +23,18 @@ public class CustomerService {
                 .build();
         customerRepository.saveAndFlush(customer);
 
-        // todo: check if email is valid
+        // Check if email is valid
+        String regex = "^(.+)@(.+)$";
+        Pattern pattern = Pattern.compile(regex);
+        if (pattern.matcher(customer.getEmail()).matches()) {
+            // Means Email is valid
+            log.info("Customer Email " + customer.getEmail() + " is valid");
+        } else {
+            throw new IllegalStateException("Customer Email is not Valid");
+        }
+
         // todo: check if email is already taken
-        // check if customer is fraudulent
+        // Check if customer is fraudulent
         FraudCheckHistoryResponse fraudCheckHistoryResponse = restTemplate
                 .getForObject("http://FRAUD/api/v1/fraud-check/{customerId}",
                 FraudCheckHistoryResponse.class,
