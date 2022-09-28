@@ -25,15 +25,22 @@ public class CustomerService {
         // todo: check if email is valid
         // todo: check if email is already taken
         // check if customer is fraudulent
-        FraudCheckHistoryResponse fraudCheckHistoryResponse = restTemplate.getForObject("http://FRAUD/api/v1/fraud-check/{customerId}",
-                FraudCheckHistoryResponse.class, customer.getId());
+        FraudCheckHistoryResponse fraudCheckHistoryResponse = restTemplate
+                .getForObject("http://FRAUD/api/v1/fraud-check/{customerId}",
+                FraudCheckHistoryResponse.class,
+                        customer.getId());
         if (fraudCheckHistoryResponse.isFraudster()) {
             // If Customer is Fraudster -> Throw exception
             throw new IllegalStateException("Customer is Fraudster");
         } else {
             // send notification
-            NotificationRequest notificationRequest = new NotificationRequest(customer.getEmail(), customer.getCreatedAt());
-            NotificationResponse response = restTemplate.postForObject("http://NOTIFICATION/api/v1/notification", notificationRequest, NotificationResponse.class);
+            NotificationRequest notificationRequest = new NotificationRequest(
+                    customer.getEmail(),
+                    customer.getCreatedAt());
+            NotificationResponse response = restTemplate
+                    .postForObject("http://NOTIFICATION/api/v1/notification",
+                            notificationRequest,
+                            NotificationResponse.class);
             log.info("Notification sent status: " + response.isSent());
         }
     }
