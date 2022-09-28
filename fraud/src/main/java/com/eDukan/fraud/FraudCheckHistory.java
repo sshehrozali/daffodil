@@ -18,7 +18,7 @@ public class FraudCheckHistory {
     @SequenceGenerator(name = "fraud_id_sequence", sequenceName = "fraud_id_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-    private Integer customerId;
+    private String customerEmail;
     private Boolean isFraudster;
     private LocalDateTime createdAt;
 }
