@@ -7,13 +7,15 @@ import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
-public class FraudCheckHistoryService {
-    private final FraudCheckHistoryRepository fraudCheckHistoryRepository;
+public class FraudService {
+    private final FraudRepository fraudRepository;
 
-    public Boolean isFraudulentCustomer(Integer customerId) {
-        fraudCheckHistoryRepository.save(
-                FraudCheckHistory.builder()
-                        .customerId(customerId)
+    public Boolean isFraudulentCustomer(String customerEmail) {
+        // todo: check if Customer record already exists
+
+        fraudRepository.save(
+                Fraud.builder()
+                        .customerEmail(customerEmail)
                         .isFraudster(false)
                         .createdAt(LocalDateTime.now())
                         .build()

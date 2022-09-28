@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/fraud-check")
 @AllArgsConstructor
 @Slf4j
-public class FraudCheckHistoryController {
+public class FraudController {
     private final FraudCheckHistoryService fraudCheckHistoryService;
 
-    @GetMapping(path = "{customerId}")
-    public FraudCheckHistoryResponse isFraudulent(@PathVariable("customerId") Integer customerId) {
-        boolean isFraudulent = fraudCheckHistoryService.isFraudulentCustomer(customerId);
-        log.info("Fraud Check Request for Customer: {}", customerId);
+    @GetMapping(path = "{customerEmail}")
+    public FraudCheckHistoryResponse isFraudulent(@PathVariable("customerEmail") String customerEmail) {
+        boolean isFraudulent = fraudCheckHistoryService.isFraudulentCustomer(customerEmail);
+        log.info("Fraud Check Request for Customer: {}", customerEmail);
         return new FraudCheckHistoryResponse(isFraudulent);
     }
 }

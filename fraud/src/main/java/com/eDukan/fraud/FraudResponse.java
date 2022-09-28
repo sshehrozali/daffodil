@@ -1,6 +1,6 @@
 package com.eDukan.fraud;
 
-public record FraudCheckHistoryResponse(
+public record FraudResponse(
         Boolean isFraudster
 ) {
 }
