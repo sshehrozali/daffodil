@@ -33,7 +33,13 @@ public class CustomerService {
             throw new IllegalStateException("Customer Email is not Valid");
         }
 
-        // todo: check if email is already taken
+        // Check if email is already taken
+        if (customerRepository.findByEmail(customer.getEmail()) == null) {
+            log.info("Customer Email is not already taken " + customer.getEmail());
+        } else {
+            throw new IllegalStateException("Customer Email is already taken " + customer.getEmail());
+        }
+
         // Check if customer is fraudulent
         FraudCheckHistoryResponse fraudCheckHistoryResponse = restTemplate
                 .getForObject("http://FRAUD/api/v1/fraud-check/{customerId}",
