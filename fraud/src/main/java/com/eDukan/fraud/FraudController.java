@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Slf4j
 public class FraudController {
-    private final FraudCheckHistoryService fraudCheckHistoryService;
+    private final FraudService fraudService;
 
     @GetMapping(path = "{customerEmail}")
-    public FraudCheckHistoryResponse isFraudulent(@PathVariable("customerEmail") String customerEmail) {
-        boolean isFraudulent = fraudCheckHistoryService.isFraudulentCustomer(customerEmail);
+    public FraudResponse isFraudulent(@PathVariable("customerEmail") String customerEmail) {
+        boolean isFraudulent = fraudService.isFraudulentCustomer(customerEmail);
         log.info("Fraud Check Request for Customer: {}", customerEmail);
-        return new FraudCheckHistoryResponse(isFraudulent);
+        return new FraudResponse(isFraudulent);
     }
 }
