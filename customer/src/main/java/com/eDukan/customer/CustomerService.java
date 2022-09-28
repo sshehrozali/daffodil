@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final RestTemplate restTemplate;
+
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstname(request.firstname())
@@ -64,6 +65,5 @@ public class CustomerService {
                         notificationRequest,
                         NotificationResponse.class);
         log.info("Notification sent status: " + response.isSent());
-    }
     }
 }
