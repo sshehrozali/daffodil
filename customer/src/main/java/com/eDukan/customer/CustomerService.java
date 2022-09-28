@@ -21,7 +21,6 @@ public class CustomerService {
                 .email(request.email())
                 .createdAt(LocalDateTime.now())
                 .build();
-        customerRepository.saveAndFlush(customer);
 
         // Check if email is valid
         String regex = "^(.+)@(.+)$";
@@ -35,29 +34,36 @@ public class CustomerService {
 
         // Check if email is already taken
         if (customerRepository.findByEmail(customer.getEmail()) == null) {
+            // Means Email is not already taken
             log.info("Customer Email is not already taken " + customer.getEmail());
         } else {
             throw new IllegalStateException("Customer Email is already taken " + customer.getEmail());
         }
 
         // Check if customer is fraudulent
-        FraudCheckHistoryResponse fraudCheckHistoryResponse = restTemplate
-                .getForObject("http://FRAUD/api/v1/fraud-check/{customerId}",
+        if (restTemplate.getForObject(
+                "http://FRAUD/api/v1/fraud-check/{customerEmail}",
                 FraudCheckHistoryResponse.class,
-                        customer.getId());
-        if (fraudCheckHistoryResponse.isFraudster()) {
-            // If Customer is Fraudster -> Throw exception
+                customer.getEmail()
+        ).isFraudster()) {
+            // Means Customer is Fraudster
             throw new IllegalStateException("Customer is Fraudster");
         } else {
-            // send notification
-            NotificationRequest notificationRequest = new NotificationRequest(
-                    customer.getEmail(),
-                    customer.getCreatedAt());
-            NotificationResponse response = restTemplate
-                    .postForObject("http://NOTIFICATION/api/v1/notification",
-                            notificationRequest,
-                            NotificationResponse.class);
-            log.info("Notification sent status: " + response.isSent());
+            log.info("Customer {} is not Fraudster", customer.getEmail());
         }
+
+        // then save Customer
+        customerRepository.save(customer);
+
+        // then send notification
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getEmail(),
+                customer.getCreatedAt());
+        NotificationResponse response = restTemplate
+                .postForObject("http://NOTIFICATION/api/v1/notification",
+                        notificationRequest,
+                        NotificationResponse.class);
+        log.info("Notification sent status: " + response.isSent());
+    }
     }
 }
