@@ -44,7 +44,7 @@ public class CustomerService {
         // Check if customer is fraudulent
         if (restTemplate.getForObject(
                 "http://FRAUD/api/v1/fraud-check/{customerEmail}",
-                FraudCheckHistoryResponse.class,
+                FraudResponse.class,
                 customer.getEmail()
         ).isFraudster()) {
             // Means Customer is Fraudster
